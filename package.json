@@ -1,0 +1,18 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@r6stats/node": "^3.0.1",
+    "axios": "^0.19.2",
+    "discord.js": "^12.1.1",
+    "dotenv": "^8.2.0",
+    "node-html-to-image": "^1.2.0"
+  }
+}

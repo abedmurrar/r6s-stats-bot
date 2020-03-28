@@ -1,0 +1,301 @@
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css"> -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <style>
+        html,
+        body {
+            width: 600px;
+            height: 400px;
+        }
+
+        body {
+            background: url('background.jpg') no-repeat !important;
+            background-size: contain;
+            background-size: 100% 100%;
+
+        }
+
+        .d-flex {
+            display: flex;
+        }
+
+        .align-items-center {
+            align-items: center;
+        }
+
+        .justify-content-center {
+            justify-content: center;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+        }
+
+        .level {
+            width: 50px;
+            height: 50px;
+            background-color: grey;
+            font-weight: bold;
+        }
+
+        .user-image {
+            width: 50px;
+            height: 50px;
+            background: url('https://ubisoft-avatars.akamaized.net/6f4a6ee4-7500-4a3f-a4f4-497039ae83e8/default_146_146.png');
+            font-weight: bold;
+            background-size: contain;
+        }
+
+        .player-name {
+            max-width: 200px;
+            margin-right: auto;
+        }
+
+        .stats-container {
+            max-width: 70px;
+            margin-right: 10px;
+        }
+
+        .overflow-hidden {
+            overflow: hidden;
+        }
+
+        .m-0 {
+            margin: 0;
+        }
+
+        .p-0 {
+            padding: 0;
+        }
+
+        .xx-small-font {
+            font-size: xx-small !important;
+        }
+
+        .x-small-font {
+            font-size: x-small !important;
+        }
+
+        .small-font {
+            font-size: small !important;
+        }
+
+        .stats-text {
+            word-wrap: break-word;
+            width: 45px;
+            margin-top: 3px;
+        }
+
+        .operator-logo {
+            width: 70%;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="d-flex align-items-center">
+        <span class="rounded circular user-image d-flex justify-content-center align-items-center"></span>
+
+        <span class="rounded circular level d-flex justify-content-center align-items-center">130</span>
+        <div class="player-name">
+            <p style="overflow: hidden;"><mark class="inline-block" style="font-size: 100%;word-wrap: break-word;">
+                    Sapphire_.-</mark></p>
+        </div>
+        <div class="stats-container">
+            <p class="m-0 overflow-hidden"><mark class="inline-block m-0 xx-small-font stats-text">
+                    K/D 0.9969</mark></p>
+            <p class="m-0 overflow-hidden"><mark class="inline-block"
+                    style="font-size: xx-small;word-wrap: break-word; margin:0; width:45px; margin-top:3px;">
+                    W/L 1.0558</mark></p>
+        </div>
+        <div class="stats-container">
+            <p class="m-0 overflow-hidden"><mark class="inline-block tertiary m-0 xx-small-font stats-text">
+                    kills 4236</mark></p>
+            <p class="m-0 overflow-hidden"><mark class="inline-block secondary m-0 xx-small-font stats-text">
+                    deaths 4236</mark></p>
+        </div>
+        <div style="max-width: 70px; margin-right: 10px;">
+            <p class="m-0 overflow-hidden"><mark class="inline-block tertiary m-0 xx-small-font stats-text">
+                    wins 4236</mark></p>
+            <p class="m-0 overflow-hidden"><mark class="inline-block secondary m-0 xx-small-font stats-text">
+                    losses 4236</mark></p>
+        </div>
+
+    </header>
+    <div class="row">
+        <div class="col-sm">
+            <div class="card fluid" style="background: rgba(255,255,255,0.6);">
+                <table class="striped">
+                    <caption class="small-font m-0">Best of Attackers</caption>
+                    <thead style="background: rgba(255,255,255,0.6);">
+                        <tr style="background: rgba(255,255,255,0.0);">
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                style="background: rgba(255,255,255,0.2);margin: 5px;">Operator</th>
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">K/D</th>
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">W/L</th>
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">
+                                Playtime</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Operator"><img src="https://cdn.r6stats.com/badges/mute_badge.png"
+                                    class="operator-logo" /></td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="K/D">1.53</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="W/L">0.983</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Playtime">3H12M</td>
+                        </tr>
+                        <tr>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Operator"><img src="https://cdn.r6stats.com/badges/mute_badge.png"
+                                    class="operator-logo" /></td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="K/D">1.53</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="W/L">0.983</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Playtime">3H12M</td>
+                        </tr>
+                        <tr>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Operator"><img src="https://cdn.r6stats.com/badges/mute_badge.png"
+                                    class="operator-logo" /></td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="K/D">1.53</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="W/L">0.983</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Playtime">3H12M</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card fluid" style="background: rgba(255,255,255,0.6);">
+                <table class="striped">
+                    <caption class="small-font m-0">Best of Defenders</caption>
+                    <thead style="background: rgba(255,255,255,0.6);">
+                        <tr style="background: rgba(255,255,255,0.0);">
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                style="background: rgba(255,255,255,0.2);margin: 5px;">Operator</th>
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">K/D</th>
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">W/L</th>
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">
+                                Playtime</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Operator"><img src="https://cdn.r6stats.com/badges/mute_badge.png"
+                                    class="operator-logo" /></td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="K/D">1.53</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="W/L">0.983</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Playtime">3H12M</td>
+                        </tr>
+                        <tr>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Operator"><img src="https://cdn.r6stats.com/badges/mute_badge.png"
+                                    class="operator-logo" /></td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="K/D">1.53</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="W/L">0.983</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Playtime">3H12M</td>
+                        </tr>
+                        <tr>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Operator"><img src="https://cdn.r6stats.com/badges/mute_badge.png"
+                                    class="operator-logo" /></td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="K/D">1.53</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="W/L">0.983</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Playtime">3H12M</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <div class="card fluid" style="background: rgba(255,255,255,0.6);">
+                <table class="striped">
+                    <caption class="small-font m-0">Worst Attacker</caption>
+                    <thead style="background: rgba(255,255,255,0.6);">
+                        <tr style="background: rgba(255,255,255,0.0);">
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                style="background: rgba(255,255,255,0.2);margin: 5px;">Operator</th>
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">K/D</th>
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">W/L</th>
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">
+                                Playtime</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Operator"><img src="https://cdn.r6stats.com/badges/mute_badge.png"
+                                    class="operator-logo" /></td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="K/D">1.53</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="W/L">0.983</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Playtime">3H12M</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card fluid" style="background: rgba(255,255,255,0.6);">
+                <table class="striped">
+                    <caption class="small-font m-0">Worst Defender</caption>
+                    <thead style="background: rgba(255,255,255,0.6);">
+                        <tr style="background: rgba(255,255,255,0.0);">
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                style="background: rgba(255,255,255,0.2);margin: 5px;">Operator</th>
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">K/D</th>
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">W/L</th>
+                            <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">
+                                Playtime</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Operator"><img src="https://cdn.r6stats.com/badges/mute_badge.png"
+                                    class="operator-logo" /></td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="K/D">1.53</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="W/L">0.983</td>
+                            <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
+                                data-label="Playtime">3H12M</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
