@@ -1,12 +1,9 @@
 "use strict";
-
+require("dotenv").config();
+const Discord = require("discord.js");
 const axios = require("axios");
-
 const nodeHtmlToImage = require("node-html-to-image");
 const fs = require("fs");
-const path = require("path");
-// Import the discord.js module
-const Discord = require("discord.js");
 
 // Create an instance of a Discord client
 const client = new Discord.Client();
@@ -22,28 +19,51 @@ client.on("ready", () => {
 // Create an event listener for messages
 client.on("message", async message => {
   if (message.content.toLowerCase().startsWith("!r6s")) {
+    // example: !r6s <username>
     let username = message.content.split(" ")[1];
 
     try {
+      /**
+       * get user data
+       *
+       * this is a response message, to get the data out of the response
+       * you invoke response.data
+       * https://github.com/axios/axios#response-schema
+       */
       const res_user = await axios.get(
         `https://r6stats.com/api/player-search/${username}/pc`
       );
 
+      /**
+       * to get more information of player
+       * and operators stats
+       */
       const res_user_stats = await axios.get(
         `https://r6stats.com/api/stats/${res_user.data[0].ubisoft_id}`
       );
       const user_stats = res_user_stats.data;
 
+      // filter all operators by attackers
       const attackers = res_user_stats.data.operators.filter(op => {
         return op.operator.role == "attacker";
       });
 
+      // filter all operators by defenders
       const defenders = res_user_stats.data.operators.filter(op => {
         return op.operator.role == "defender";
       });
 
+      /**
+       * Spread previous arrays into a new array to clone
+       * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+       */
       let attackers_sorted_by_playtime = [...attackers];
       let defenders_sorted_by_playtime = [...defenders];
+
+      /**
+       * Sort both operators attackers and defenders by playtime descending
+       * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+       */
 
       attackers_sorted_by_playtime.sort((a, b) => b.playtime - a.playtime);
       defenders_sorted_by_playtime.sort((a, b) => b.playtime - a.playtime);
@@ -51,8 +71,14 @@ client.on("message", async message => {
       let best_3_attackers = [...attackers_sorted_by_playtime];
       let best_3_defenders = [...defenders_sorted_by_playtime];
 
+      /**
+       * Get top 7 of the most played operators
+       * if player has played more than 10 operators
+       * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+       */
       attackers_sorted_by_playtime.length > 10 &&
         (best_3_attackers = best_3_attackers.splice(0, 7));
+
       best_3_attackers.sort((a, b) => b.kd - a.kd);
       best_3_attackers.length > 3 &&
         (best_3_attackers = best_3_attackers.splice(0, 3));
