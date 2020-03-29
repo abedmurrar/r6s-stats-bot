@@ -6,46 +6,8 @@ const nodeHtmlToImage = require("node-html-to-image");
 const fs = require("fs");
 const best = require("./best");
 const worst = require("./worst");
-
+const utils = require("./utils");
 // TODO: Move functions to Utilies.js ifle
-function convertSecondsToPlaytime(playtime) {
-  var date = new Date(null);
-  date.setSeconds(playtime);
-  var result = date.toISOString().substr(11, 5);
-  return result;
-}
-
-function FormatOperatorData(operator) {
-  operator.kd = (Math.round(operator.kd * 100) / 100).toFixed(2);
-  operator.wl = (Math.round(operator.wl * 100) / 100).toFixed(2);
-  operator.playtime = convertSecondsToPlaytime(operator.playtime);
-}
-
-function FormatUserData(user_stats) {
-  user_stats.stats[0].general.kd = (
-    Math.round(user_stats.stats[0].general.kd * 100) / 100
-  ).toFixed(2);
-  user_stats.stats[0].general.wl = (
-    Math.round(user_stats.stats[0].general.wl * 100) / 100
-  ).toFixed(2);
-}
-
-function FormatDataBeforeRender(
-  best_3_attackers,
-  best_3_defenders,
-  worst_attacker,
-  worst_defender,
-  user_stats
-) {
-  //Format User Data
-  FormatUserData(user_stats);
-
-  //Format Shown Operators Data
-  best_3_attackers.forEach(attacker => FormatOperatorData(attacker));
-  best_3_defenders.forEach(defender => FormatOperatorData(defender));
-  FormatOperatorData(worst_attacker);
-  FormatOperatorData(worst_defender);
-}
 
 // Create an instance of a Discord client
 const client = new Discord.Client();
@@ -100,8 +62,8 @@ client.on("message", async message => {
 
       let worst_attacker = worst(attackers);
       let worst_defender = worst(defenders);
-
-      FormatDataBeforeRender(
+      
+      utils.FormatDataBeforeRender(
         best_3_attackers,
         best_3_defenders,
         worst_attacker,
