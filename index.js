@@ -4,40 +4,48 @@ const Discord = require("discord.js");
 const axios = require("axios");
 const nodeHtmlToImage = require("node-html-to-image");
 const fs = require("fs");
+const best = require("./best");
+const worst = require("./worst");
 
 // TODO: Move functions to Utilies.js ifle
-function convertSecondsToPlaytime(playtime){
-    var date = new Date(null);
-    date.setSeconds(playtime);
-    var result = date.toISOString().substr(11,5);
-    return result;
-  }
-
-function FormatOperatorData(operator){
-    operator.kd = (Math.round(operator.kd * 100) / 100).toFixed(2);
-    operator.wl = (Math.round(operator.wl * 100) / 100).toFixed(2);
-    operator.playtime = convertSecondsToPlaytime(operator.playtime);
-
+function convertSecondsToPlaytime(playtime) {
+  var date = new Date(null);
+  date.setSeconds(playtime);
+  var result = date.toISOString().substr(11, 5);
+  return result;
 }
 
-function FormatUserData(user_stats){
-    user_stats.stats[0].general.kd = (Math.round(user_stats.stats[0].general.kd * 100) / 100).toFixed(2);
-    user_stats.stats[0].general.wl = (Math.round(user_stats.stats[0].general.wl * 100) / 100).toFixed(2);
+function FormatOperatorData(operator) {
+  operator.kd = (Math.round(operator.kd * 100) / 100).toFixed(2);
+  operator.wl = (Math.round(operator.wl * 100) / 100).toFixed(2);
+  operator.playtime = convertSecondsToPlaytime(operator.playtime);
 }
 
-function FormatDataBeforeRender(best_3_attackers,best_3_defenders,worst_attacker,worst_defender, user_stats){
-
-    //Format User Data
-    FormatUserData(user_stats);
-
-    //Format Shown Operators Data
-    best_3_attackers.forEach(attacker => FormatOperatorData(attacker));
-    best_3_defenders.forEach(defender => FormatOperatorData(defender));
-    FormatOperatorData(worst_attacker);
-    FormatOperatorData(worst_defender);
+function FormatUserData(user_stats) {
+  user_stats.stats[0].general.kd = (
+    Math.round(user_stats.stats[0].general.kd * 100) / 100
+  ).toFixed(2);
+  user_stats.stats[0].general.wl = (
+    Math.round(user_stats.stats[0].general.wl * 100) / 100
+  ).toFixed(2);
 }
 
+function FormatDataBeforeRender(
+  best_3_attackers,
+  best_3_defenders,
+  worst_attacker,
+  worst_defender,
+  user_stats
+) {
+  //Format User Data
+  FormatUserData(user_stats);
 
+  //Format Shown Operators Data
+  best_3_attackers.forEach(attacker => FormatOperatorData(attacker));
+  best_3_defenders.forEach(defender => FormatOperatorData(defender));
+  FormatOperatorData(worst_attacker);
+  FormatOperatorData(worst_defender);
+}
 
 // Create an instance of a Discord client
 const client = new Discord.Client();
@@ -87,52 +95,20 @@ client.on("message", async message => {
         return op.operator.role == "defender";
       });
 
-      /**
-       * Spread previous arrays into a new array to clone
-       * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
-       */
-      let attackers_sorted_by_playtime = [...attackers];
-      let defenders_sorted_by_playtime = [...defenders];
+      let best_3_attackers = best(attackers).splice(0, 3);
+      let best_3_defenders = best(defenders).splice(0, 3);
 
-      /**
-       * Sort both operators attackers and defenders by playtime descending
-       * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-       */
+      let worst_attacker = worst(attackers);
+      let worst_defender = worst(defenders);
 
-      attackers_sorted_by_playtime.sort((a, b) => b.playtime - a.playtime);
-      defenders_sorted_by_playtime.sort((a, b) => b.playtime - a.playtime);
+      FormatDataBeforeRender(
+        best_3_attackers,
+        best_3_defenders,
+        worst_attacker,
+        worst_defender,
+        user_stats
+      );
 
-      let best_3_attackers = [...attackers_sorted_by_playtime];
-      let best_3_defenders = [...defenders_sorted_by_playtime];
-
-      /**
-       * Get top 7 of the most played operators
-       * if player has played more than 10 operators
-       * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
-       */
-      attackers_sorted_by_playtime.length > 10 &&
-        (best_3_attackers = best_3_attackers.splice(0, 7));
-
-      best_3_attackers.sort((a, b) => b.kd - a.kd);
-      best_3_attackers.length > 3 &&
-        (best_3_attackers = best_3_attackers.splice(0, 3));
-
-      defenders_sorted_by_playtime.length > 10 &&
-        (best_3_defenders = best_3_defenders.splice(0, 7));
-      best_3_defenders.sort((a, b) => b.kd - a.kd);
-      best_3_defenders.length > 3 &&
-        (best_3_defenders = best_3_defenders.splice(0, 3));
-
-      let worst_attacker = attackers_sorted_by_playtime.filter(
-        op => op.kd < 0.7 && op.wl < 1
-      )[0];
-      let worst_defender = defenders_sorted_by_playtime.filter(
-        op => op.kd < 0.9 && op.wl < 1
-      )[0];
-      
-      FormatDataBeforeRender(best_3_attackers,best_3_defenders,worst_attacker,worst_defender,user_stats);
-    
-      
       nodeHtmlToImage({
         output: "./image.png",
         html: `<html>
