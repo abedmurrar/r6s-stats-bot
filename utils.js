@@ -23,6 +23,8 @@ function convertSecondsToPlaytime(playtime){
       days = Math.floor(days);
       result = days.toString() + "D";
       hours = hours -  days * 24;
+      result = result + hours.toString() + "H";
+      return result;
   }
   result = result + hours.toString() + "H";
   result = result + minutes.toString() + "M";
