@@ -5,6 +5,40 @@ const axios = require("axios");
 const nodeHtmlToImage = require("node-html-to-image");
 const fs = require("fs");
 
+// TODO: Move functions to Utilies.js ifle
+function convertSecondsToPlaytime(playtime){
+    var date = new Date(null);
+    date.setSeconds(playtime);
+    var result = date.toISOString().substr(11,5);
+    return result;
+  }
+
+function FormatOperatorData(operator){
+    operator.kd = (Math.round(operator.kd * 100) / 100).toFixed(2);
+    operator.wl = (Math.round(operator.wl * 100) / 100).toFixed(2);
+    operator.playtime = convertSecondsToPlaytime(operator.playtime);
+
+}
+
+function FormatUserData(user_stats){
+    user_stats.stats[0].general.kd = (Math.round(user_stats.stats[0].general.kd * 100) / 100).toFixed(2);
+    user_stats.stats[0].general.wl = (Math.round(user_stats.stats[0].general.wl * 100) / 100).toFixed(2);
+}
+
+function FormatDataBeforeRender(best_3_attackers,best_3_defenders,worst_attacker,worst_defender, user_stats){
+
+    //Format User Data
+    FormatUserData(user_stats);
+
+    //Format Shown Operators Data
+    best_3_attackers.forEach(attacker => FormatOperatorData(attacker));
+    best_3_defenders.forEach(defender => FormatOperatorData(defender));
+    FormatOperatorData(worst_attacker);
+    FormatOperatorData(worst_defender);
+}
+
+
+
 // Create an instance of a Discord client
 const client = new Discord.Client();
 
@@ -95,7 +129,10 @@ client.on("message", async message => {
       let worst_defender = defenders_sorted_by_playtime.filter(
         op => op.kd < 0.9 && op.wl < 1
       )[0];
-
+      
+      FormatDataBeforeRender(best_3_attackers,best_3_defenders,worst_attacker,worst_defender,user_stats);
+    
+      
       nodeHtmlToImage({
         output: "./image.png",
         html: `<html>
@@ -213,15 +250,15 @@ client.on("message", async message => {
               </div>
               <div class="stats-container">
                   <p class="m-0 overflow-hidden"><mark class="inline-block tertiary m-0 xx-small-font stats-text">
-                          kills {{player_general_kills}}</mark></p>
+                          Kills {{player_general_kills}}</mark></p>
                   <p class="m-0 overflow-hidden"><mark class="inline-block secondary m-0 xx-small-font stats-text">
-                          deaths {{player_general_deaths}}</mark></p>
+                          Deaths {{player_general_deaths}}</mark></p>
               </div>
               <div style="max-width: 70px; margin-right: 10px;">
                   <p class="m-0 overflow-hidden"><mark class="inline-block tertiary m-0 xx-small-font stats-text">
-                          wins {{player_general_wins}}</mark></p>
+                          Wins {{player_general_wins}}</mark></p>
                   <p class="m-0 overflow-hidden"><mark class="inline-block secondary m-0 xx-small-font stats-text">
-                          losses {{player_general_losses}}</mark></p>
+                          Losses {{player_general_losses}}</mark></p>
               </div>
       
           </header>
