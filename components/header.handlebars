@@ -1,0 +1,29 @@
+<header class="d-flex align-items-center">
+    <span class="rounded circular user-image d-flex justify-content-center align-items-center"></span>
+
+    <span class="rounded circular level d-flex justify-content-center align-items-center">{{player_level}}</span>
+    <div class="player-name">
+        <p style="overflow: hidden;"><mark class="inline-block" style="font-size: 100%;word-wrap: break-word;">
+                {{player_name}}</mark></p>
+    </div>
+    <div class="stats-container">
+        <p class="m-0 overflow-hidden"><mark class="inline-block m-0 xx-small-font stats-text">
+                K/D {{player_general_kd}}</mark></p>
+        <p class="m-0 overflow-hidden"><mark class="inline-block"
+                style="font-size: xx-small;word-wrap: break-word; margin:0; width:45px; margin-top:3px;">
+                W/L {{player_general_wl}}</mark></p>
+    </div>
+    <div class="stats-container">
+        <p class="m-0 overflow-hidden"><mark class="inline-block tertiary m-0 xx-small-font stats-text">
+                Kills {{player_general_kills}}</mark></p>
+        <p class="m-0 overflow-hidden"><mark class="inline-block secondary m-0 xx-small-font stats-text">
+                Deaths {{player_general_deaths}}</mark></p>
+    </div>
+    <div style="max-width: 70px; margin-right: 10px;">
+        <p class="m-0 overflow-hidden"><mark class="inline-block tertiary m-0 xx-small-font stats-text">
+                Wins {{player_general_wins}}</mark></p>
+        <p class="m-0 overflow-hidden"><mark class="inline-block secondary m-0 xx-small-font stats-text">
+                Losses {{player_general_losses}}</mark></p>
+    </div>
+
+</header>
