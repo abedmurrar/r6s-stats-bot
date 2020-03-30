@@ -4,6 +4,7 @@ const Discord = require("discord.js");
 const axios = require("axios");
 const nodeHtmlToImage = require("node-html-to-image");
 const fs = require("fs");
+const path = require("path");
 const best = require("./best");
 const worst = require("./worst");
 const utils = require("./utils");
@@ -73,263 +74,102 @@ client.on("message", async message => {
 
       nodeHtmlToImage({
         output: "./image.png",
-        html: `<html>
-      <head>
-          <style>
-          ${fs.readFileSync("mini-default.min.css", "utf8")}
-          </style>
-          <style>
-              html,
-              body {
-                  width: 600px;
-                  height: 400px;
-              }
-      
-              body {
-                  background: url('https://i.imgur.com/0sSEHGN.jpg') no-repeat !important;
-                  background-size: contain;
-                  background-size: 100% 100%;
-      
-              }
-      
-              .d-flex {
-                  display: flex;
-              }
-      
-              .align-items-center {
-                  align-items: center;
-              }
-      
-              .justify-content-center {
-                  justify-content: center;
-              }
-      
-              header {
-                  background: rgba(255, 255, 255, 0.1);
-                  border: none;
-              }
-      
-              .level {
-                  width: 50px;
-                  height: 50px;
-                  background-color: grey;
-                  font-weight: bold;
-              }
-      
-              .user-image {
-                  width: 50px;
-                  height: 50px;
-                  background: url('{{player_avatar}}');
-                  font-weight: bold;
-                  background-size: contain;
-              }
-      
-              .player-name {
-                  max-width: 200px;
-                  margin-right: auto;
-              }
-      
-              .stats-container {
-                  max-width: 70px;
-                  margin-right: 10px;
-              }
-      
-              .overflow-hidden {
-                  overflow: hidden;
-              }
-      
-              .m-0 {
-                  margin: 0;
-              }
-      
-              .p-0 {
-                  padding: 0;
-              }
-      
-              .xx-small-font {
-                  font-size: xx-small !important;
-              }
-      
-              .x-small-font {
-                  font-size: x-small !important;
-              }
-      
-              .small-font {
-                  font-size: small !important;
-              }
-      
-              .stats-text {
-                  word-wrap: break-word;
-                  width: 45px;
-                  margin-top: 3px;
-              }
-      
-              .operator-logo {
-                  width: 70%;
-              }
-          </style>
-      </head>
-      
-      <body>
-          <header class="d-flex align-items-center">
-              <span class="rounded circular user-image d-flex justify-content-center align-items-center"></span>
-      
-              <span class="rounded circular level d-flex justify-content-center align-items-center">{{player_level}}</span>
-              <div class="player-name">
-                  <p style="overflow: hidden;"><mark class="inline-block" style="font-size: 100%;word-wrap: break-word;">
-                          {{player_name}}</mark></p>
-              </div>
-              <div class="stats-container">
-                  <p class="m-0 overflow-hidden"><mark class="inline-block m-0 xx-small-font stats-text">
-                          K/D {{player_general_kd}}</mark></p>
-                  <p class="m-0 overflow-hidden"><mark class="inline-block"
-                          style="font-size: xx-small;word-wrap: break-word; margin:0; width:45px; margin-top:3px;">
-                          W/L {{player_general_wl}}</mark></p>
-              </div>
-              <div class="stats-container">
-                  <p class="m-0 overflow-hidden"><mark class="inline-block tertiary m-0 xx-small-font stats-text">
-                          Kills {{player_general_kills}}</mark></p>
-                  <p class="m-0 overflow-hidden"><mark class="inline-block secondary m-0 xx-small-font stats-text">
-                          Deaths {{player_general_deaths}}</mark></p>
-              </div>
-              <div style="max-width: 70px; margin-right: 10px;">
-                  <p class="m-0 overflow-hidden"><mark class="inline-block tertiary m-0 xx-small-font stats-text">
-                          Wins {{player_general_wins}}</mark></p>
-                  <p class="m-0 overflow-hidden"><mark class="inline-block secondary m-0 xx-small-font stats-text">
-                          Losses {{player_general_losses}}</mark></p>
-              </div>
-      
-          </header>
-          <div class="row">
-              <div class="col-sm">
-                  <div class="card fluid" style="background: rgba(255,255,255,0.6);">
-                      <table class="striped">
-                          <caption class="small-font m-0">Best of Attackers</caption>
-                          <thead style="background: rgba(255,255,255,0.6);">
-                              <tr style="background: rgba(255,255,255,0.0);">
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                      style="background: rgba(255,255,255,0.2);margin: 5px;">Operator</th>
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">K/D</th>
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">W/L</th>
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">
-                                      Playtime</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                          {{#each player_best_attackers}}
-                              <tr>
-                                  <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                      data-label="Operator"><img src="{{this.operator.images.badge}}"
-                                          class="operator-logo" /></td>
-                                  <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                      data-label="K/D">{{this.kd}}</td>
-                                  <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                      data-label="W/L">{{this.wl}}</td>
-                                  <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                      data-label="Playtime">{{this.playtime}}</td>
-                              </tr>
-                              {{/each}}
-                          </tbody>
-                      </table>
-                  </div>
-              </div>
-              <div class="col-sm">
-                  <div class="card fluid" style="background: rgba(255,255,255,0.6);">
-                      <table class="striped">
-                          <caption class="small-font m-0">Best of Defenders</caption>
-                          <thead style="background: rgba(255,255,255,0.6);">
-                              <tr style="background: rgba(255,255,255,0.0);">
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                      style="background: rgba(255,255,255,0.2);margin: 5px;">Operator</th>
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">K/D</th>
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">W/L</th>
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">
-                                      Playtime</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                          {{#each player_best_defenders}}
-                                <tr>
-                                    <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                        data-label="Operator"><img src="{{this.operator.images.badge}}"
-                                            class="operator-logo" /></td>
-                                    <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                        data-label="K/D">{{this.kd}}</td>
-                                    <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                        data-label="W/L">{{this.wl}}</td>
-                                    <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                        data-label="Playtime">{{this.playtime}}</td>
-                                </tr>
-                              {{/each}}
-                          </tbody>
-                      </table>
-                  </div>
-              </div>
-          </div>
-          <div class="row">
-              <div class="col-sm">
-                  <div class="card fluid" style="background: rgba(255,255,255,0.6);">
-                      <table class="striped">
-                          <caption class="small-font m-0">Worst Attacker</caption>
-                          <thead style="background: rgba(255,255,255,0.6);">
-                              <tr style="background: rgba(255,255,255,0.0);">
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                      style="background: rgba(255,255,255,0.2);margin: 5px;">Operator</th>
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">K/D</th>
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">W/L</th>
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">
-                                      Playtime</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr>
-                                  <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                      data-label="Operator"><img src="{{player_worst_attacker.operator.images.badge}}"
-                                          class="operator-logo" /></td>
-                                  <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                      data-label="K/D">{{player_worst_attacker.kd}}</td>
-                                  <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                      data-label="W/L">{{player_worst_attacker.wl}}</td>
-                                  <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                      data-label="Playtime">{{player_worst_attacker.playtime}}</td>
-                              </tr>
-                          </tbody>
-                      </table>
-                  </div>
-              </div>
-              <div class="col-sm">
-                  <div class="card fluid" style="background: rgba(255,255,255,0.6);">
-                      <table class="striped">
-                          <caption class="small-font m-0">Worst Defender</caption>
-                          <thead style="background: rgba(255,255,255,0.6);">
-                              <tr style="background: rgba(255,255,255,0.0);">
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                                      style="background: rgba(255,255,255,0.2);margin: 5px;">Operator</th>
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">K/D</th>
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">W/L</th>
-                                  <th class="m-0 p-0 d-flex justify-content-center align-items-center small-font">
-                                      Playtime</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                          <tr>
-                          <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                              data-label="Operator"><img src="{{player_worst_defender.operator.images.badge}}"
-                                  class="operator-logo" /></td>
-                          <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                              data-label="K/D">{{player_worst_defender.kd}}</td>
-                          <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                              data-label="W/L">{{player_worst_defender.wl}}</td>
-                          <td class="m-0 p-0 d-flex justify-content-center align-items-center small-font"
-                              data-label="Playtime">{{player_worst_defender.playtime}}</td>
-                      </tr>
-                          </tbody>
-                      </table>
-                  </div>
-              </div>
-          </div>
-      </body>
-      
+        html: `
+        <html>
+        <head>
+            <style>
+                ${fs.readFileSync(
+                  path.resolve("styles", "mini-default.min.css"),
+                  "utf8"
+                )}
+            </style>
+            <style>
+                ${fs.readFileSync(path.resolve("styles", "index.css"), "utf8")}
+            </style>
+        </head>
+        
+        <body>
+            ${fs.readFileSync(
+              path.resolve("components", "header.handlebars"),
+              "utf8"
+            )}
+            <div class="row">
+                <div class="col-sm">
+                    <div class="card fluid" style="background: rgba(255,255,255,0.6);">
+                        <table class="striped">
+                            <caption class="small-font m-0">Best of Attackers</caption>
+                            ${fs.readFileSync(
+                              path.resolve("components", "thead.handlebars"),
+                              "utf8"
+                            )}
+                            ${fs.readFileSync(
+                              path.resolve(
+                                "components",
+                                "best_attackers_tbody.handlebars"
+                              ),
+                              "utf8"
+                            )}
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="card fluid" style="background: rgba(255,255,255,0.6);">
+                        <table class="striped">
+                            <caption class="small-font m-0">Best of Defenders</caption>
+                            ${fs.readFileSync(
+                              path.resolve("components", "thead.handlebars"),
+                              "utf8"
+                            )}
+                            ${fs.readFileSync(
+                              path.resolve(
+                                "components",
+                                "best_defenders_tbody.handlebars"
+                              ),
+                              "utf8"
+                            )}
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="card fluid" style="background: rgba(255,255,255,0.6);">
+                        <table class="striped">
+                            <caption class="small-font m-0">Worst Attacker</caption>
+                            ${fs.readFileSync(
+                              path.resolve("components", "thead.handlebars"),
+                              "utf8"
+                            )}
+                            ${fs.readFileSync(
+                              path.resolve(
+                                "components",
+                                "worst_attacker_tbody.handlebars"
+                              ),
+                              "utf8"
+                            )}
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="card fluid" style="background: rgba(255,255,255,0.6);">
+                        <table class="striped">
+                            <caption class="small-font m-0">Worst Defender</caption>
+                            ${fs.readFileSync(
+                              path.resolve("components", "thead.handlebars"),
+                              "utf8"
+                            )}
+                            ${fs.readFileSync(
+                              path.resolve(
+                                "components",
+                                "worst_defender_tbody.handlebars"
+                              ),
+                              "utf8"
+                            )}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </body>
       </html>
       `,
         puppeteerArgs: {
@@ -355,10 +195,19 @@ client.on("message", async message => {
           player_worst_defender: worst_defender
         }
       }).then(() => {
-        console.log("The image was created successfully!");
-        message.channel.send("Here are your stats", {
-          files: ["./image.png"]
-        });
+        console.log(`The image was created successfully for ${username}!`);
+        message.channel
+          .send(`Here are ${username} stats`, {
+            files: ["./image.png"]
+          })
+          .then(() => {
+            try {
+              fs.unlinkSync("./image.png");
+              //file removed
+            } catch (err) {
+              console.error(err);
+            }
+          });
       });
     } catch (err) {
       console.log(err);

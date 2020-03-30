@@ -1,0 +1,87 @@
+html,
+body {
+  width: 600px;
+  height: 400px;
+}
+
+body {
+  background: url("https://i.imgur.com/0sSEHGN.jpg") no-repeat !important;
+  background-size: contain;
+  background-size: 100% 100%;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+header {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+}
+
+.level {
+  width: 50px;
+  height: 50px;
+  background-color: grey;
+  font-weight: bold;
+}
+
+.user-image {
+  width: 50px;
+  height: 50px;
+  background: url("{{player_avatar}}");
+  font-weight: bold;
+  background-size: contain;
+}
+
+.player-name {
+  max-width: 200px;
+  margin-right: auto;
+}
+
+.stats-container {
+  max-width: 70px;
+  margin-right: 10px;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.p-0 {
+  padding: 0;
+}
+
+.xx-small-font {
+  font-size: xx-small !important;
+}
+
+.x-small-font {
+  font-size: x-small !important;
+}
+
+.small-font {
+  font-size: small !important;
+}
+
+.stats-text {
+  word-wrap: break-word;
+  width: 45px;
+  margin-top: 3px;
+}
+
+.operator-logo {
+  width: 70%;
+}
